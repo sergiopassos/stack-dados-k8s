@@ -8,9 +8,13 @@
 ```shell
 ```
 
-### infrastructure
+### minio [deepstorage]
 ```shell
 kubectl apply -f app-manifests/deepstorage/minio-operator.yaml
 kubectl apply -f app-manifests/deepstorage/minio-tenant.yaml
-kubectl get secret console-sa-secret --namespace deepstorage -o jsonpath="{.data.token}" | base64 --decode
+```
+
+### hive metastore [metastore]
+```shell
+kubectl apply -f app-manifests/metastore/hive-metastore.yaml
 ```

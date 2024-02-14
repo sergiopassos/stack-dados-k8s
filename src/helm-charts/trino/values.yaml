@@ -195,7 +195,6 @@ additionalCatalogs:
      hive.s3.endpoint=http://minio.deepstorage.svc.Cluster.local
      hive.s3.path-style-access=true
      hive.s3.ssl.enabled=false
-     hive.s3select-pushdown.enabled=true
      hive.allow-add-column=true
      hive.allow-drop-column=true
      hive.allow-drop-table=true

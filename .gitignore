@@ -1,0 +1,12 @@
+.idea
+
+terraform/*/*/.terraform.lock.hcl
+terraform/*/*/.terraform.tfstate.lock.info
+terraform/*/*/.tfvars
+terraform/*/*/.tfvars.json
+terraform/*/*/terraform-provider-*
+terraform/*/*/.terraform/plugins/
+terraform/*/*/.terraform/providers/
+terraform/*/*/terraform.tfstate
+terraform/*/*/terraform.tfstate.backup
+

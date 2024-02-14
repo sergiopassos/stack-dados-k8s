@@ -19,7 +19,7 @@ conf:
     fs.s3a.impl: org.apache.hadoop.fs.s3a.S3AFileSystem
     fs.s3a.access.key: data-lake
     fs.s3a.secret.key: 12620ee6-2162-11ee-be56-0242ac120002
-    fs.s3a.endpoint: http://10.0.199.90
+    fs.s3a.endpoint: http://minio.deepstorage.svc.Cluster.local
     fs.s3a.path.style.access: true
     fs.s3a.connection.ssl.enabled: false
 

@@ -1,8 +1,5 @@
 # ws-stack-dados-k8s
 
-helm repo add trino https://trinodb.github.io/charts/
-helm repo update
-
 
 ### kubernetes cluster
 ```shell

@@ -22,8 +22,10 @@ kubectl apply -f app-manifests/metastore/hive-metastore.yaml
 
 ### trino [warehouse]
 ```shell
-htpasswd -Bbn orion newpassword > trino-pwd
-kubectl create secret generic trino-password-file --from-file=trino-pwd --namespace warehouse
+htpasswd -Bbn orion newpassword > trn-pwd-file && \
+htpasswd -Bbn dev newpassword >> trn-pwd-file && \
+htpasswd -Bbn luanmoreno newpassword >> trn-pwd-file
+
+kubectl create secret generic trino-password-file --from-file=trn-pwd-file --namespace warehouse
 kubectl apply -f app-manifests/warehouse/trino.yaml
 ```
-

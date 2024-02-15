@@ -32,7 +32,7 @@ server:
         path: ""
     # Trino supports multiple authentication types: PASSWORD, CERTIFICATE, OAUTH2, JWT, KERBEROS
     # For more info: https://trino.io/docs/current/security/authentication-types.html
-    authenticationType: "PASSWORD"
+    authenticationType: ""
     query:
       maxMemory: "4GB"
   exchangeManager:
@@ -257,7 +257,7 @@ auth:
   # passwordAuthSecret: "trino-password-file"
   # Set username and password
   # https://trino.io/docs/current/security/password-file.html#file-format
-  passwordAuth: "orion:$2y$05$v6dkAoqhls1bUOV1QA8d4OGat6rpXpq0TPKtUp0ifbruS5XHMfHOy"
+  # passwordAuth: "orion:$2y$05$v6dkAoqhls1bUOV1QA8d4OGat6rpXpq0TPKtUp0ifbruS5XHMfHOy"
   # or set the name of a secret containing this file in the password.db key
   # passwordAuthSecret: "trino-password-authentication"
   # Set users' groups

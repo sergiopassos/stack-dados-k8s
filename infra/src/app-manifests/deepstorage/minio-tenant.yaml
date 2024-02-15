@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: 'https://github.com/owshq-academy/ws-stack-dados-k8s.git'
-    path: src/helm-charts/minio-tenant
+    path: infra/src/helm-charts/minio-tenant
     targetRevision: HEAD
     helm:
       valueFiles:

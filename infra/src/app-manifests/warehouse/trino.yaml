@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: 'https://github.com/owshq-academy/ws-stack-dados-k8s.git'
-    path: src/helm-charts/trino
+    path: infra/src/helm-charts/trino
     targetRevision: HEAD
     helm:
       valueFiles:

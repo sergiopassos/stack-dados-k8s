@@ -278,9 +278,6 @@ secretMounts:
   # - name: sample-secret
   #   secretName: sample-secret
   #   path: /secrets/sample.json
-  - name: password-volume
-    secretName: trino-password-file
-    path: /etc/trino/passwords
 
 coordinator:
   jvm:

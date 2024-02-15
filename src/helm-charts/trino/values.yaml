@@ -26,13 +26,13 @@ server:
     http:
       port: 8080
     https:
-      enabled: false
+      enabled: true
       port: 8443
       keystore:
         path: ""
     # Trino supports multiple authentication types: PASSWORD, CERTIFICATE, OAUTH2, JWT, KERBEROS
     # For more info: https://trino.io/docs/current/security/authentication-types.html
-    authenticationType: ""
+    authenticationType: "PASSWORD"
     query:
       maxMemory: "4GB"
   exchangeManager:

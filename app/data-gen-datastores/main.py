@@ -1,7 +1,7 @@
-# TODO construct readme.md
-# TODO build api using fastapi
-
 """
+mc alias set orion-minio-dev http://4.153.0.204 data-lake 12620ee6-2162-11ee-be56-0242ac120002
+mc ls orion-minio-dev/landing
+
 SQL Server:
 - Users
 - Credit Card
@@ -27,16 +27,15 @@ import json
 import random
 import pandas as pd
 
-from azure.storage.blob import BlobServiceClient
 from dotenv import load_dotenv
+from io import BytesIO
+from minio import Minio
+from minio.error import S3Error
 from datetime import datetime
-from src.objects import users, rides, payments, vehicle
 from src.api import api_requests
+from src.objects import users, rides, payments, vehicle
 
 load_dotenv()
-
-blob_storage_conn_str = os.getenv("BLOB_STORAGE_CONNECTION_STRING")
-container_landing = os.getenv("LANDING_CONTAINER_NAME")
 
 users = users.Users()
 rides = rides.Rides()
@@ -46,22 +45,45 @@ vehicle = vehicle.Vehicle()
 api = api_requests.Requests()
 
 
-class BlobStorage(object):
+class MinioStorage(object):
     """
-    This class is used to write data into the landing zone
+    This class is used to write data into the MinIO server
     """
 
-    def __init__(self, str_blob_stg, container_name):
+    def __init__(self, endpoint=None, access_key=None, secret_key=None, bucket_name=None):
         """
-        Initialize the BlobStorage object.
+        Initialize the MinioStorage object.
 
         Args:
-            str_blob_stg: The connection string for the blob storage.
-            container_name: The name of the container.
+            endpoint: The endpoint of the MinIO server.
+            access_key: The access key for MinIO.
+            secret_key: The secret key for MinIO.
+            bucket_name: The bucket name on the MinIO server.
+        """
+        self.get_config_storage(endpoint, access_key, secret_key, bucket_name)
+
+    def get_config_storage(self, endpoint, access_key, secret_key, bucket_name):
+        """
+        :param endpoint: The URL of the MinIO server endpoint. If not provided, it will use the value from the environment variable "ENDPOINT".
+        :param access_key: The access key for authenticating to the MinIO server. If not provided, it will use the value from the environment variable "ACCESS_KEY".
+        :param secret_key: The secret key for authenticating to the MinIO server. If not provided, it will use the value from the environment variable "SECRET_KEY".
+        :param bucket_name: The name of the bucket to be accessed on the MinIO server. If not provided, it will use the value from the environment variable "LANDING_BUCKET".
+        :return: None
+
+        The method `get_config_storage` initializes the configuration storage by setting up the endpoint, access key, secret key, and bucket name for the MinIO client. It uses the provided values
+        * for `endpoint`, `access_key`, `secret_key`, and `bucket_name` parameters, or falls back to the corresponding environment variables if not provided.
+
+        Example usage:
+        config_storage = ConfigStorage()
+        config_storage.get_config_storage("https://minio.example.com", "access_key123", "secret_key456", "my-bucket")
         """
 
-        self.blob_storage_conn_str = str_blob_stg
-        self.container_landing = container_name
+        endpoint = endpoint or os.getenv("ENDPOINT")
+        access_key = access_key or os.getenv("ACCESS_KEY")
+        secret_key = secret_key or os.getenv("SECRET_KEY")
+
+        self.bucket_name = bucket_name or os.getenv("LANDING_BUCKET")
+        self.client = Minio(endpoint, access_key, secret_key, secure=False)
 
     @staticmethod
     def create_dataframe(dt, ds_type, is_cpf=False):
@@ -91,19 +113,28 @@ class BlobStorage(object):
         json_data = pd_df.to_json(orient="records").encode('utf-8')
         return json_data, ds_type
 
-    def upload_blob(self, json_data, file_name):
+    def upload_data(self, data, object_name):
         """
-        Upload a blob to the specified container.
+        Uploads a file to a specified bucket in the MinIO server.
 
         Args:
-            json_data: The JSON data to upload.
-            file_name: The name of the file to upload.
+            data: Data to be uploaded.
+            object_name:  The name of the object.
         """
 
-        blob_service_client = BlobServiceClient.from_connection_string(self.blob_storage_conn_str)
-        container_client = blob_service_client.get_container_client(self.container_landing)
-        blob_client = container_client.get_blob_client(file_name)
-        blob_client.upload_blob(json_data)
+        try:
+            json_buffer = BytesIO(data)
+
+            self.client.put_object(
+                self.bucket_name,
+                object_name=object_name,
+                data=json_buffer,
+                length=len(data),
+                content_type='application/json'
+            )
+
+        except S3Error as exc:
+            print(f"error occurred while uploading data, {exc}")
 
     def write_file(self, ds_type: str):
         """
@@ -141,10 +172,10 @@ class BlobStorage(object):
             timestamp = f'{year}_{month}_{day}_{hour}_{minute}_{second}.json'
 
             user_file_name = file_prefix + "/users" + "/" + timestamp
-            self.upload_blob(users_json, user_file_name)
+            self.upload_data(users_json, user_file_name)
 
             credit_card_file_name = file_prefix + "/credit_card" + "/" + timestamp
-            self.upload_blob(credit_card_json, credit_card_file_name)
+            self.upload_data(credit_card_json, credit_card_file_name)
 
             return user_file_name, credit_card_file_name
 
@@ -161,13 +192,13 @@ class BlobStorage(object):
             timestamp = f'{year}_{month}_{day}_{hour}_{minute}_{second}.json'
 
             payments_file_name = file_prefix + "/payments" + "/" + timestamp
-            self.upload_blob(payments_json, payments_file_name)
+            self.upload_data(payments_json, payments_file_name)
 
             subscription_file_name = file_prefix + "/subscription" + "/" + timestamp
-            self.upload_blob(subscription_json, subscription_file_name)
+            self.upload_data(subscription_json, subscription_file_name)
 
             vehicle_file_name = file_prefix + "/vehicle" + "/" + timestamp
-            self.upload_blob(dt_vehicle_json, vehicle_file_name)
+            self.upload_data(dt_vehicle_json, vehicle_file_name)
 
             return payments_file_name, subscription_file_name, vehicle_file_name
 
@@ -185,13 +216,13 @@ class BlobStorage(object):
             timestamp = f'{year}_{month}_{day}_{hour}_{minute}_{second}.json'
 
             rides_file_name = file_prefix + "/rides" + "/" + timestamp
-            self.upload_blob(rides_json, rides_file_name)
+            self.upload_data(rides_json, rides_file_name)
 
             users_file_name = file_prefix + "/users" + "/" + timestamp
-            self.upload_blob(users_json, users_file_name)
+            self.upload_data(users_json, users_file_name)
 
             stripe_file_name = file_prefix + "/stripe" + "/" + timestamp
-            self.upload_blob(stripe_json, stripe_file_name)
+            self.upload_data(stripe_json, stripe_file_name)
 
             return rides_file_name, users_file_name, stripe_file_name
 
@@ -219,12 +250,12 @@ class BlobStorage(object):
             timestamp = f'{year}_{month}_{day}_{hour}_{minute}_{second}.json'
 
             google_auth_file_name = file_prefix + "/google_auth" + "/" + timestamp
-            self.upload_blob(google_auth_json, google_auth_file_name)
+            self.upload_data(google_auth_json, google_auth_file_name)
 
             linkedin_auth_file_name = file_prefix + "/linkedin_auth" + "/" + timestamp
-            self.upload_blob(linkedin_auth_json, linkedin_auth_file_name)
+            self.upload_data(linkedin_auth_json, linkedin_auth_file_name)
 
             apple_auth_file_name = file_prefix + "/apple_auth" + "/" + timestamp
-            self.upload_blob(apple_auth_json, apple_auth_file_name)
+            self.upload_data(apple_auth_json, apple_auth_file_name)
 
             return google_auth_file_name, linkedin_auth_file_name, apple_auth_file_name

@@ -1,12 +1,15 @@
 .idea
 
-terraform/*/*/.terraform.lock.hcl
-terraform/*/*/.terraform.tfstate.lock.info
-terraform/*/*/.tfvars
-terraform/*/*/.tfvars.json
-terraform/*/*/terraform-provider-*
-terraform/*/*/.terraform/plugins/
-terraform/*/*/.terraform/providers/
-terraform/*/*/terraform.tfstate
-terraform/*/*/terraform.tfstate.backup
+infra/terraform/*/*/.terraform.lock.hcl
+infra/terraform/*/*/.terraform.tfstate.lock.info
+infra/terraform/*/*/.tfvars
+infra/terraform/*/*/.tfvars.json
+infra/terraform/*/*/terraform-provider-*
+infra/terraform/*/*/.terraform/plugins/
+infra/terraform/*/*/.terraform/providers/
+infra/terraform/*/*/terraform.tfstate
+infra/terraform/*/*/terraform.tfstate.backup
+
+venv/
+.venv/
 

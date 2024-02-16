@@ -28,5 +28,6 @@ kubectl apply -f app-manifests/warehouse/trino.yaml
 
 ### airflow [orchestrator]
 ```shell
+kubectl apply -f git-credentials-secret.yaml
 kubectl apply -f app-manifests/orchestrator/airflow.yaml
 ```

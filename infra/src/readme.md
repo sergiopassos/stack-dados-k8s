@@ -25,3 +25,8 @@ kubectl apply -f app-manifests/metastore/hive-metastore.yaml
 ```shell
 kubectl apply -f app-manifests/warehouse/trino.yaml
 ```
+
+### airflow [orchestrator]
+```shell
+kubectl apply -f app-manifests/orchestrator/airflow.yaml
+```

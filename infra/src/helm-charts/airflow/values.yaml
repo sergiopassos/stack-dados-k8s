@@ -2459,16 +2459,16 @@ dags:
     apiVersion: v1
     kind: Secret
     metadata:
-        name: git-credentials
-        data:
-    #     # For git-sync v3
-         GIT_SYNC_USERNAME: luanmorenomaciel
-         GIT_SYNC_PASSWORD: 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
-    #     # For git-sync v4
-         GITSYNC_USERNAME: luanmorenomaciel
-         GITSYNC_PASSWORD: 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
-    # and specify the name of the secret below
-    #
+      name: git-credentials
+    data:
+      # For git-sync v3
+      GIT_SYNC_USERNAME: luanmorenomaciel
+      GIT_SYNC_PASSWORD: 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
+      # For git-sync v4
+      GITSYNC_USERNAME: luanmorenomaciel
+      GITSYNC_PASSWORD: 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
+     # and specify the name of the secret below
+     #
     credentialsSecret: git-credentials
     #
     #

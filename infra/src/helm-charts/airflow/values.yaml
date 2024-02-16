@@ -2454,15 +2454,15 @@ dags:
     # should be "" if dags are at repo root
     subPath: "data/dags"
 
-  apiVersion: v1
-  kind: Secret
-  metadata:
-    name: git-credentials
-  data:
-    GIT_SYNC_USERNAME: luanmorenomaciel
-    GIT_SYNC_PASSWORD: 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
-    GITSYNC_USERNAME: luanmorenomaciel
-    GITSYNC_PASSWORD: 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
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: git-credentials
+    data:
+      GIT_SYNC_USERNAME: luanmorenomaciel
+      GIT_SYNC_PASSWORD: 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
+      GITSYNC_USERNAME: luanmorenomaciel
+      GITSYNC_PASSWORD: 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
 
     credentialsSecret: git-credentials
 

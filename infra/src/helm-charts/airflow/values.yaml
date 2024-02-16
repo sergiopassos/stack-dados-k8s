@@ -2437,12 +2437,12 @@ dags:
     ## optional subpath for dag volume mount
     subPath: ~
   gitSync:
-    enabled: false
+    enabled: true
 
     # git repo clone url
     # ssh example: git@github.com:apache/airflow.git
     # https example: https://github.com/apache/airflow.git
-    repo: https://luanmorenomaciel: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@github.com/owshq-academy/ws-stack-dados-k8s.git
+    repo: https://github.com/owshq-academy/ws-stack-dados-k8s.git
     branch: v2-2-stable
     rev: HEAD
     # The git revision (branch, tag, or hash) to check out, v4 only
@@ -2453,23 +2453,19 @@ dags:
     # subpath within the repo where dags are located
     # should be "" if dags are at repo root
     subPath: "data/dags"
-    # if your repo needs a user name password
-    # you can load them to a k8s secret like the one below
-    #   ---
-    #   apiVersion: v1
-    #   kind: Secret
-    #   metadata:
-    #     name: git-credentials
-    #   data:
-    #     # For git-sync v3
-    #     GIT_SYNC_USERNAME: <base64_encoded_git_username>
-    #     GIT_SYNC_PASSWORD: <base64_encoded_git_password>
-    #     # For git-sync v4
-    #     GITSYNC_USERNAME: <base64_encoded_git_username>
-    #     GITSYNC_PASSWORD: <base64_encoded_git_password>
-    # and specify the name of the secret below
-    #
-    # credentialsSecret: git-credentials
+
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: git-credentials
+    data:
+      GIT_SYNC_USERNAME: luanmorenomaciel
+      GIT_SYNC_PASSWORD: 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
+      GITSYNC_USERNAME: luanmorenomaciel
+      GITSYNC_PASSWORD: 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
+
+    credentialsSecret: git-credentials
+
     #
     #
     # If you are using an ssh clone url, you can load

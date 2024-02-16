@@ -13,3 +13,5 @@ infra/terraform/*/*/terraform.tfstate.backup
 venv/
 .venv/
 
+
+.DS_Store

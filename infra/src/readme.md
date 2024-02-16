@@ -1,5 +1,6 @@
 # ws-stack-dados-k8s
 
+helm repo add apache-airflow https://airflow.apache.org
 
 ### kubernetes cluster
 ```shell

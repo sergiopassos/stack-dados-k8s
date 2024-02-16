@@ -426,7 +426,7 @@ fernetKey: ~
 fernetKeySecretName: ~
 
 # Flask secret key for Airflow Webserver: `[webserver] secret_key` in airflow.cfg
-webserverSecretKey: ~
+webserverSecretKey: 289199280de8afee5d0ef80418dbb52a
 webserverSecretKeySecretName: ~
 
 # In order to use kerberos you need to create secret containing the keytab file

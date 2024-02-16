@@ -2446,7 +2446,7 @@ dags:
     branch: master
     rev: HEAD
     # The git revision (branch, tag, or hash) to check out, v4 only
-    ref: v2-2-stable
+    ref: master
     depth: 1
     # the number of consecutive failures allowed before aborting
     maxFailures: 0

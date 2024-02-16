@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import tempfile
+import uuid
 
 import pyarrow as pa
 import pyarrow.parquet as pq
@@ -18,14 +19,14 @@ with tempfile.NamedTemporaryFile(suffix=".parquet") as temp_file:
     pq.write_table(table, temp_file.name)
     temp_file.seek(0)
 
+    prq_file_uuid = uuid.uuid4()
     client.put_object(
         bucket_name="landing",
-        object_name=f"com.owshq.data/mssql/users/{}.parquet",
+        object_name=f"com.owshq.data/mssql/users/{prq_file_uuid}.parquet",
         data=temp_file,
         length=os.path.getsize(temp_file.name),
         content_type='application/octet-stream'
     )
-
 
 
 file_path = "com.owshq.data/mssql/users/{}}.parquet"

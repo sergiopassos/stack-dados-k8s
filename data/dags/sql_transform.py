@@ -71,7 +71,7 @@ def dbt_sql_transform():
         tg_stg_postgres = DbtTaskGroup(
             group_id="tg_stg_postgres",
             project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
-            render_config=RenderConfig(load_method=LoadMode.DBT_MANIFEST, select=[f"tag:postgres"]),
+            render_config=RenderConfig(load_method=LoadMode.DBT_LS, select=[f"tag:postgres"]),
             execution_config=ExecutionConfig(dbt_project_path=dbt_root_path),
             profile_config=profile_config
         )
@@ -79,7 +79,7 @@ def dbt_sql_transform():
         tg_stg_mongodb = DbtTaskGroup(
             group_id="tg_stg_mongodb",
             project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
-            render_config=RenderConfig(load_method=LoadMode.DBT_MANIFEST, select=[f"tag:mongodb"]),
+            render_config=RenderConfig(load_method=LoadMode.DBT_LS, select=[f"tag:mongodb"]),
             execution_config=ExecutionConfig(dbt_project_path=dbt_root_path),
             profile_config=profile_config
         )

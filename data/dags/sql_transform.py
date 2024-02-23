@@ -85,7 +85,7 @@ def dbt_sql_transform():
 
     post_dbt = EmptyOperator(task_id="post_dbt")
 
-    pre_dbt >> [mssql_users, mssql_credit_card] >> post_dbt
+    pre_dbt >> mssql_users >> mssql_credit_card >> post_dbt
 
 
 dbt_sql_transform()

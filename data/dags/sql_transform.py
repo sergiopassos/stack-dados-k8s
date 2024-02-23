@@ -11,6 +11,7 @@ from airflow.decorators import dag
 from airflow.operators.empty import EmptyOperator
 
 from cosmos import (
+    DbtDag,
     DbtTaskGroup,
     ProfileConfig,
     ProjectConfig,
@@ -54,12 +55,24 @@ def dbt_sql_transform():
 
     pre_dbt = EmptyOperator(task_id="pre_dbt")
 
-    stg_mssql = DbtTaskGroup(
-        group_id="stg_mssql",
+    mssql_users = DbtDag(
         project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
         render_config=RenderConfig(
             load_method=LoadMode.CUSTOM,
-            select=["path:models/stage/mssql_*.sql"]
+            select=["path:models/stage/mssql_users.sql"]
+        ),
+        profile_config=profile_config,
+        operator_args={
+            "install_deps": True,
+            "vars": {}
+        }
+    )
+
+    mssql_credit_card = DbtDag(
+        project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
+        render_config=RenderConfig(
+            load_method=LoadMode.CUSTOM,
+            select=["path:models/stage/mssql_credit_card.sql"]
         ),
         profile_config=profile_config,
         operator_args={
@@ -70,7 +83,7 @@ def dbt_sql_transform():
 
     post_dbt = EmptyOperator(task_id="post_dbt")
 
-    pre_dbt >> stg_mssql >> post_dbt
+    pre_dbt >> [mssql_users, mssql_credit_card] >> post_dbt
 
 
 dbt_sql_transform()

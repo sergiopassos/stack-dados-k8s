@@ -55,8 +55,8 @@ def dbt_sql_transform():
 
     pre_dbt = EmptyOperator(task_id="pre_dbt")
 
-    mssql_users = DbtDag(
-        dag_id="mssql_users",
+    mssql_users = DbtTaskGroup(
+        group_id="mssql_users",
         project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
         render_config=RenderConfig(
             load_method=LoadMode.CUSTOM,
@@ -69,8 +69,8 @@ def dbt_sql_transform():
         }
     )
 
-    mssql_credit_card = DbtDag(
-        dag_id="mssql_credit_card",
+    mssql_credit_card = DbtTaskGroup(
+        group_id="mssql_credit_card",
         project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
         render_config=RenderConfig(
             load_method=LoadMode.CUSTOM,

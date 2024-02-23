@@ -8,7 +8,7 @@ from datetime import timedelta
 from pathlib import Path
 
 from airflow.decorators import dag
-from airflow.operators.empty import EmptyOperator
+from airflow.utils.task_group import TaskGroup
 
 from cosmos import (
     DbtDag,
@@ -67,19 +67,25 @@ def dbt_sql_transform():
         }
     )
 
-    tg_stg_postgres = DbtTaskGroup(
-        group_id="tg_stg_postgres",
-        project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
-        render_config=RenderConfig(
-            load_method=LoadMode.CUSTOM,
-            select=["tag:postgres"],
-        ),
-        profile_config=profile_config,
-        operator_args={
-            "install_deps": True,
-            "vars": {}
-        }
-    )
+    with TaskGroup(group_id="tg_dbt_postgres_models") as tg_dbt_postgres_models:
+
+        dbt_render_config = RenderConfig(
+                emit_datasets=False,
+                select=[f"tag:postgres"],
+            )
+        
+        tg_stg_postgres = DbtTaskGroup(
+            group_id="tg_stg_postgres",
+            project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
+            render_config=dbt_render_config,
+            profile_config=profile_config,
+            operator_args={
+                "install_deps": True,
+                "vars": {}
+            }
+        )
+
+        tg_stg_postgres
 
     tg_stg_mongodb = DbtTaskGroup(
         group_id="tg_stg_mongodb",
@@ -95,7 +101,7 @@ def dbt_sql_transform():
         }
     )
 
-    tg_stg_mssql >> tg_stg_postgres >> tg_stg_mongodb
+    tg_stg_mssql >> tg_dbt_postgres_models >> tg_stg_mongodb
 
 
 dbt_sql_transform()

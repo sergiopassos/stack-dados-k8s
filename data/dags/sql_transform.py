@@ -39,9 +39,6 @@ profile_config = ProfileConfig(
     profiles_yml_filepath=(dbt_root_path / "owshq/profiles.yml")
 )
 
-execution_config = ExecutionConfig()
-
-
 @dag(
     dag_id="dbt_sql_transform",
     doc_md=doc_md,
@@ -64,7 +61,6 @@ def dbt_sql_transform():
             group_id="tg_stg_mssql",
             project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
             render_config=RenderConfig(select=[f"tag:mssql"]),
-            execution_config=execution_config,
             profile_config=profile_config,
             operator_args={
                 "install_deps": True,

@@ -60,7 +60,6 @@ def dbt_sql_transform():
         
         tg_stg_mssql = DbtTaskGroup(
             group_id="tg_stg_mssql",
-            project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
             render_config=RenderConfig(select=[f"tag:mssql"]),
             execution_config=ExecutionConfig(dbt_project_path=dbt_root_path),
             profile_config=profile_config,

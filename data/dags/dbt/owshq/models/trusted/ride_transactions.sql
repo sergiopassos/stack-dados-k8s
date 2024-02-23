@@ -1,26 +1,41 @@
-{{ config(materialized='view', database='iceberg') }}
+{{ config(
+    materialized = 'view',
+    database = 'iceberg'
+) }}
 
 WITH user AS (
-    SELECT *
-    FROM {{ ref('users') }}
+
+    SELECT
+        *
+    FROM
+        {{ ref('users') }}
 ),
 vehicle AS (
-    SELECT * 
-    FROM {{ ref('postgres_vehicle') }}
+    SELECT
+        *
+    FROM
+        {{ ref('postgres_vehicle') }}
 ),
 subscription AS (
-    SELECT * 
-    FROM {{ ref('postgres_subscription') }}
+    SELECT
+        *
+    FROM
+        {{ ref('postgres_subscription') }}
 ),
 stripe AS (
-    SELECT * 
-    FROM {{ ref('mongodb_stripe') }}
+    SELECT
+        *
+    FROM
+        {{ ref('mongodb_stripe') }}
 ),
 payment AS (
-    SELECT * 
-    FROM {{ ref('postgres_payments') }}
+    SELECT
+        *
+    FROM
+        {{ ref('postgres_payments') }}
 )
-SELECT rides.ride_id AS ride_id,
+SELECT
+    rides.ride_id AS ride_id,
     rides.user_id AS user_id,
     rides.vehicle_id AS vehicle_id,
     rides.subscription_id AS subscription_id,
@@ -47,14 +62,15 @@ SELECT rides.ride_id AS ride_id,
     payment.currency AS payment_currency,
     payment.credit_card_type AS payment_credit_card_type,
     payment.price AS payment_price
-FROM {{ ref('mongodb_rides') }} AS rides
-LEFT OUTER JOIN user AS user
-ON rides.user_id = user.user_id
-LEFT OUTER JOIN vehicle AS vehicle
-ON rides.vehicle_id = vehicle.vehicle_id
-LEFT OUTER JOIN subscription AS subscription
-ON rides.subscription_id = subscription.subscription_id
-LEFT OUTER JOIN stripe AS stripe
-ON rides.stripe_id = stripe.stripe_id
-LEFT OUTER JOIN payment AS payment
-ON rides.payment_id = payment.payment_id
+FROM
+    {{ ref('mongodb_rides') }} AS rides
+    LEFT OUTER JOIN USER AS USER
+    ON rides.user_id = USER.user_id
+    LEFT OUTER JOIN vehicle AS vehicle
+    ON rides.vehicle_id = vehicle.vehicle_id
+    LEFT OUTER JOIN subscription AS subscription
+    ON rides.subscription_id = subscription.subscription_id
+    LEFT OUTER JOIN stripe AS stripe
+    ON rides.stripe_id = stripe.stripe_id
+    LEFT OUTER JOIN payment AS payment
+    ON rides.payment_id = payment.payment_id

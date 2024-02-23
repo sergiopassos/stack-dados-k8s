@@ -4,9 +4,9 @@ mc ls orion-minio-dev/landing
 ```
 
 ```shell
-python cli.py all
-python cli.py mssql
-python cli.py postgres
-python cli.py mongodb
-python cli.py redis
+python cli.py all parquet
+python cli.py mssql json
+python cli.py postgres json
+python cli.py mongodb json
+python cli.py redis json
 ```

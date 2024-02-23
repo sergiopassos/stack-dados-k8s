@@ -61,7 +61,7 @@ def dbt_sql_transform():
         ),
         render_config=RenderConfig(
             load_method=LoadMode.CUSTOM,
-            select=["path:models/stage/stage_mssql_users.sql"]
+            select=["path:models/stage/mssql_users.sql"]
         ),
         profile_config=profile_config,
         operator_args={

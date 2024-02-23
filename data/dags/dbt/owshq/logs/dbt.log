@@ -1,0 +1,124 @@
+[0m12:54:03.317588 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1192aaa10>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x119272910>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1192d5550>]}
+
+
+============================== 12:54:03.320772 | 207cedc8-ec19-4af4-8faa-40e619448c5f ==============================
+[0m12:54:03.320772 [info ] [MainThread]: Running with dbt=1.7.8
+[0m12:54:03.321076 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': '/Users/luanmorenomaciel/GitHub/ws-stack-dados-k8s/data/dags/dbt/owshq', 'debug': 'False', 'fail_fast': 'False', 'log_path': '/Users/luanmorenomaciel/GitHub/ws-stack-dados-k8s/data/dags/dbt/owshq/logs', 'version_check': 'True', 'warn_error': 'None', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'log_format': 'default', 'static_parser': 'True', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'invocation_command': 'dbt ', 'target_path': 'None', 'introspect': 'True', 'send_anonymous_usage_stats': 'True'}
+[0m12:54:03.416486 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '207cedc8-ec19-4af4-8faa-40e619448c5f', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x119273710>]}
+[0m12:54:03.449316 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '207cedc8-ec19-4af4-8faa-40e619448c5f', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1192734d0>]}
+[0m12:54:03.449659 [info ] [MainThread]: Registered adapter: trino=1.7.0
+[0m12:54:03.462952 [debug] [MainThread]: checksum: 67f0013ca5f0bd43af9a0873dd50792fde83ef69de63b71cacd0b4ac656c52e5, vars: {}, profile: , target: , version: 1.7.8
+[0m12:54:03.528524 [debug] [MainThread]: Partial parsing enabled: 0 files deleted, 0 files added, 0 files changed.
+[0m12:54:03.528776 [debug] [MainThread]: Partial parsing enabled, no changes found, skipping parsing
+[0m12:54:03.531763 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '207cedc8-ec19-4af4-8faa-40e619448c5f', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1197119d0>]}
+[0m12:54:03.539525 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '207cedc8-ec19-4af4-8faa-40e619448c5f', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x119388bd0>]}
+[0m12:54:03.539774 [info ] [MainThread]: Found 13 models, 8 sources, 0 exposures, 0 metrics, 423 macros, 0 groups, 0 semantic models
+[0m12:54:03.539950 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '207cedc8-ec19-4af4-8faa-40e619448c5f', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1196e21d0>]}
+[0m12:54:03.540664 [info ] [MainThread]: 
+[0m12:54:03.541011 [debug] [MainThread]: Acquiring new trino connection 'master'
+[0m12:54:03.541482 [debug] [ThreadPool]: Acquiring new trino connection 'list_iceberg'
+[0m12:54:03.547968 [debug] [ThreadPool]: Using trino connection "list_iceberg"
+[0m12:54:03.548150 [debug] [ThreadPool]: On list_iceberg: /* {"app": "dbt", "dbt_version": "1.7.8", "profile_name": "minio", "target_name": "dev", "connection_name": "list_iceberg"} */
+
+    select schema_name
+    from "iceberg".INFORMATION_SCHEMA.schemata
+[0m12:54:03.548282 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m12:54:04.370022 [debug] [ThreadPool]: SQL status: SUCCESS in 1.0 seconds
+[0m12:54:04.373688 [debug] [ThreadPool]: On list_iceberg: Close
+[0m12:54:04.377796 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_iceberg, now list_iceberg_landing)
+[0m12:54:04.386691 [debug] [ThreadPool]: Using trino connection "list_iceberg_landing"
+[0m12:54:04.387162 [debug] [ThreadPool]: On list_iceberg_landing: /* {"app": "dbt", "dbt_version": "1.7.8", "profile_name": "minio", "target_name": "dev", "connection_name": "list_iceberg_landing"} */
+select
+      t.table_catalog as database,
+      t.table_name as name,
+      t.table_schema as schema,
+      case when mv.name is not null then 'materialized_view'
+           when t.table_type = 'BASE TABLE' then 'table'
+           when t.table_type = 'VIEW' then 'view'
+           else t.table_type
+      end as table_type
+    from "iceberg".INFORMATION_SCHEMA.tables t
+    left join (
+            select * from system.metadata.materialized_views
+            where catalog_name = 'iceberg'
+              and schema_name = 'landing') mv
+          on mv.catalog_name = t.table_catalog and mv.schema_name = t.table_schema and mv.name = t.table_name
+    where t.table_schema = 'landing'
+[0m12:54:04.387471 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m12:54:05.347819 [debug] [ThreadPool]: SQL status: SUCCESS in 1.0 seconds
+[0m12:54:05.354270 [debug] [ThreadPool]: On list_iceberg_landing: ROLLBACK
+[0m12:54:05.356146 [debug] [ThreadPool]: On list_iceberg_landing: Close
+[0m12:54:05.361843 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '207cedc8-ec19-4af4-8faa-40e619448c5f', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10128c390>]}
+[0m12:54:05.362516 [debug] [MainThread]: On master: COMMIT
+[0m12:54:05.363278 [info ] [MainThread]: Concurrency: 1 threads (target='dev')
+[0m12:54:05.363655 [info ] [MainThread]: 
+[0m12:54:05.371620 [debug] [Thread-1 (]: Began running node model.dev.stage_mssql_users
+[0m12:54:05.372663 [info ] [Thread-1 (]: 1 of 1 START sql table model iceberg.landing.stage_mssql_users ................. [RUN]
+[0m12:54:05.373421 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly list_iceberg_landing, now model.dev.stage_mssql_users)
+[0m12:54:05.373733 [debug] [Thread-1 (]: Began compiling node model.dev.stage_mssql_users
+[0m12:54:05.376906 [debug] [Thread-1 (]: Writing injected SQL for node "model.dev.stage_mssql_users"
+[0m12:54:05.380392 [debug] [Thread-1 (]: Timing info for model.dev.stage_mssql_users (compile): 12:54:05.373945 => 12:54:05.380190
+[0m12:54:05.380686 [debug] [Thread-1 (]: Began executing node model.dev.stage_mssql_users
+[0m12:54:05.405220 [debug] [Thread-1 (]: Writing runtime sql for node "model.dev.stage_mssql_users"
+[0m12:54:05.410183 [debug] [Thread-1 (]: Using trino connection "model.dev.stage_mssql_users"
+[0m12:54:05.410439 [debug] [Thread-1 (]: On model.dev.stage_mssql_users: /* {"app": "dbt", "dbt_version": "1.7.8", "profile_name": "minio", "target_name": "dev", "node_id": "model.dev.stage_mssql_users"} */
+
+  
+    
+
+    create table "iceberg"."landing"."stage_mssql_users__dbt_tmp"
+      
+      
+    as (
+      
+
+SELECT DISTINCT
+    CAST(user_id AS INT) AS user_id,
+    cpf AS cpf,
+    CONCAT(first_name, ' ', last_name) AS full_name,
+    CAST(date_birth AS DATE) AS date_of_birth,
+    city AS city,
+    country AS country,
+    company_name AS company_name,
+    job AS job,
+    phone_number AS phone_number,
+    time_zone AS time_zone,
+    CAST(dt_current_timestamp AS TIMESTAMP) AS last_updated
+FROM "minio"."landing"."mssql_users_parquet"
+    )
+[0m12:54:05.410646 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m12:54:08.558129 [debug] [Thread-1 (]: SQL status: SUCCESS in 3.0 seconds
+[0m12:54:08.564399 [debug] [Thread-1 (]: Using trino connection "model.dev.stage_mssql_users"
+[0m12:54:08.564736 [debug] [Thread-1 (]: On model.dev.stage_mssql_users: /* {"app": "dbt", "dbt_version": "1.7.8", "profile_name": "minio", "target_name": "dev", "node_id": "model.dev.stage_mssql_users"} */
+alter table "iceberg"."landing"."stage_mssql_users" rename to "iceberg"."landing"."stage_mssql_users__dbt_backup"
+[0m12:54:09.115582 [debug] [Thread-1 (]: SQL status: SUCCESS in 1.0 seconds
+[0m12:54:09.122940 [debug] [Thread-1 (]: Using trino connection "model.dev.stage_mssql_users"
+[0m12:54:09.123739 [debug] [Thread-1 (]: On model.dev.stage_mssql_users: /* {"app": "dbt", "dbt_version": "1.7.8", "profile_name": "minio", "target_name": "dev", "node_id": "model.dev.stage_mssql_users"} */
+alter table "iceberg"."landing"."stage_mssql_users__dbt_tmp" rename to "iceberg"."landing"."stage_mssql_users"
+[0m12:54:09.661982 [debug] [Thread-1 (]: SQL status: SUCCESS in 1.0 seconds
+[0m12:54:09.670175 [debug] [Thread-1 (]: Applying DROP to: "iceberg"."landing"."stage_mssql_users__dbt_backup"
+[0m12:54:09.672841 [debug] [Thread-1 (]: Using trino connection "model.dev.stage_mssql_users"
+[0m12:54:09.673384 [debug] [Thread-1 (]: On model.dev.stage_mssql_users: /* {"app": "dbt", "dbt_version": "1.7.8", "profile_name": "minio", "target_name": "dev", "node_id": "model.dev.stage_mssql_users"} */
+
+    drop table if exists "iceberg"."landing"."stage_mssql_users__dbt_backup"
+[0m12:54:10.215693 [debug] [Thread-1 (]: SQL status: SUCCESS in 1.0 seconds
+[0m12:54:10.223893 [debug] [Thread-1 (]: Timing info for model.dev.stage_mssql_users (execute): 12:54:05.380851 => 12:54:10.223778
+[0m12:54:10.224125 [debug] [Thread-1 (]: On model.dev.stage_mssql_users: ROLLBACK
+[0m12:54:10.224285 [debug] [Thread-1 (]: On model.dev.stage_mssql_users: Close
+[0m12:54:10.224780 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '207cedc8-ec19-4af4-8faa-40e619448c5f', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1197c7090>]}
+[0m12:54:10.225094 [info ] [Thread-1 (]: 1 of 1 OK created sql table model iceberg.landing.stage_mssql_users ............ [[32mSUCCESS[0m in 4.85s]
+[0m12:54:10.225367 [debug] [Thread-1 (]: Finished running node model.dev.stage_mssql_users
+[0m12:54:10.226140 [debug] [MainThread]: On master: COMMIT
+[0m12:54:10.226467 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m12:54:10.226607 [debug] [MainThread]: Connection 'model.dev.stage_mssql_users' was properly closed.
+[0m12:54:10.226766 [info ] [MainThread]: 
+[0m12:54:10.226923 [info ] [MainThread]: Finished running 1 table model in 0 hours 0 minutes and 6.69 seconds (6.69s).
+[0m12:54:10.227218 [debug] [MainThread]: Command end result
+[0m12:54:10.235793 [info ] [MainThread]: 
+[0m12:54:10.236031 [info ] [MainThread]: [32mCompleted successfully[0m
+[0m12:54:10.236194 [info ] [MainThread]: 
+[0m12:54:10.236356 [info ] [MainThread]: Done. PASS=1 WARN=0 ERROR=0 SKIP=0 TOTAL=1
+[0m12:54:10.247006 [debug] [MainThread]: Resource report: {"command_name": "run", "command_success": true, "command_wall_clock_time": 6.9870834, "process_user_time": 1.039752, "process_kernel_time": 0.213528, "process_mem_max_rss": "117981184", "process_in_blocks": "0", "process_out_blocks": "0"}
+[0m12:54:10.247340 [debug] [MainThread]: Command `cli run` succeeded at 12:54:10.247279 after 6.99 seconds
+[0m12:54:10.247566 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1192d6f90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1192d7090>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x119257950>]}
+[0m12:54:10.247753 [debug] [MainThread]: Flushing usage events

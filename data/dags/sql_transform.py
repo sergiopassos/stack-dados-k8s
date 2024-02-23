@@ -58,7 +58,7 @@ def dbt_sql_transform():
         project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
         render_config=RenderConfig(
             load_method=LoadMode.CUSTOM,
-            select=[f"tag:mssql"],
+            select=["tag:mssql"],
         ),
         profile_config=profile_config,
         operator_args={
@@ -72,7 +72,7 @@ def dbt_sql_transform():
         project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
         render_config=RenderConfig(
             load_method=LoadMode.CUSTOM,
-            select=[f"tag:postgres"],
+            select=["tag:postgres"],
         ),
         profile_config=profile_config,
         operator_args={
@@ -86,7 +86,7 @@ def dbt_sql_transform():
         project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
         render_config=RenderConfig(
             load_method=LoadMode.CUSTOM,
-            select=[f"tag:mongodb"],
+            select=["tag:mongodb"],
         ),
         profile_config=profile_config,
         operator_args={

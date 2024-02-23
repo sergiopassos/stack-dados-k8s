@@ -5,19 +5,8 @@
     "definitions": {
         "leafs": {
             "additionalProperties": {
-                "if": {
-                    "not": {
-                        "properties": {
-                            "description": {
-                                "pattern": "^Labels for the configmap$|^Labels for the secret$|^Annotations for the configmap$|^Annotations for the secret$"
-                            }
-                        }
-                    }
-                },
-                "then": {
-                    "additionalProperties": {
-                        "$ref": "#/definitions/leafs"
-                    }
+                "additionalProperties": {
+                    "$ref": "#/definitions/leafs"
                 }
             },
             "if": {

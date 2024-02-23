@@ -17,8 +17,7 @@ from cosmos import (
     ProjectConfig,
     RenderConfig,
     LoadMode,
-    ExecutionConfig,
-    ExecutionMode
+    ExecutionConfig
 )
 
 logger = logging.getLogger(__name__)
@@ -33,7 +32,6 @@ default_args = {
 
 default_dbt_root_path = Path(__file__).parent / "dbt"
 dbt_root_path = Path(os.getenv("DBT_ROOT_PATH", default_dbt_root_path))
-# dbt_manifest = Path(dbt_root_path, "owshq/target/manifest.json")
 
 profile_config = ProfileConfig(
     profile_name="iceberg",
@@ -63,7 +61,7 @@ def dbt_sql_transform():
         tg_stg_mssql = DbtTaskGroup(
             group_id="tg_stg_mssql",
             project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
-            render_config=RenderConfig(load_method=LoadMode.DBT_LS, select=[f"tag:mssql"]),
+            render_config=RenderConfig(load_method=LoadMode.AUTOMATIC, select=[f"tag:mssql"]),
             execution_config=ExecutionConfig(dbt_project_path=dbt_root_path),
             profile_config=profile_config,
             operator_args={
@@ -75,7 +73,7 @@ def dbt_sql_transform():
         tg_stg_postgres = DbtTaskGroup(
             group_id="tg_stg_postgres",
             project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
-            render_config=RenderConfig(load_method=LoadMode.DBT_LS, select=[f"tag:postgres"]),
+            render_config=RenderConfig(load_method=LoadMode.AUTOMATIC, select=[f"tag:postgres"]),
             profile_config=profile_config,
             operator_args={
                 "install_deps": True,
@@ -86,7 +84,7 @@ def dbt_sql_transform():
         tg_stg_mongodb = DbtTaskGroup(
             group_id="tg_stg_mongodb",
             project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
-            render_config=RenderConfig(load_method=LoadMode.DBT_LS, select=[f"tag:mongodb"]),
+            render_config=RenderConfig(load_method=LoadMode.AUTOMATIC, select=[f"tag:mongodb"]),
             execution_config=ExecutionConfig(dbt_project_path=dbt_root_path),
             profile_config=profile_config,
             operator_args={

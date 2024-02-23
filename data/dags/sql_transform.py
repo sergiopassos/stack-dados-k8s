@@ -76,7 +76,7 @@ def dbt_sql_transform():
             group_id="tg_stg_postgres",
             project_config=ProjectConfig(manifest_path=dbt_manifest, project_name="owshq"),
             render_config=RenderConfig(load_method=LoadMode.DBT_MANIFEST, select=[f"tag:postgres"]),
-            execution_config=ExecutionConfig(dbt_project_path=dbt_root_path, execution_mode=ExecutionMode.KUBERNETES)
+            execution_config=ExecutionConfig(dbt_project_path=dbt_root_path, execution_mode=ExecutionMode.KUBERNETES),
             profile_config=profile_config,
             operator_args={
                 "install_deps": True,
@@ -88,7 +88,7 @@ def dbt_sql_transform():
             group_id="tg_stg_mongodb",
             project_config=ProjectConfig(manifest_path=dbt_manifest, project_name="owshq"),
             render_config=RenderConfig(load_method=LoadMode.DBT_MANIFEST, select=[f"tag:mongodb"]),
-            execution_config=ExecutionConfig(dbt_project_path=dbt_root_path, execution_mode=ExecutionMode.KUBERNETES)
+            execution_config=ExecutionConfig(dbt_project_path=dbt_root_path, execution_mode=ExecutionMode.KUBERNETES),
             profile_config=profile_config,
             operator_args={
                 "install_deps": True,

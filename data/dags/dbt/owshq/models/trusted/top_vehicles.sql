@@ -2,7 +2,7 @@
 
 WITH transactions AS (
     SELECT *
-    FROM {{ ref('trusted_ride_transactions') }}
+    FROM {{ ref('trusted.ride_transactions') }}
 )
 SELECT trx.vehicle_name AS vehicle_name,
     COUNT(*) AS total_rides

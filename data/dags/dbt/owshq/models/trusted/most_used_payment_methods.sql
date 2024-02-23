@@ -2,7 +2,7 @@
 
 WITH transactions AS (
     SELECT *
-    FROM {{ ref('trusted_ride_transactions') }}
+    FROM {{ ref('trusted.ride_transactions') }}
 )
 SELECT trx.subscription_payment_method AS payment_method,
     COUNT(*) AS total_transactions,

@@ -2,7 +2,7 @@
 
 WITH transactions AS (
     SELECT *
-    FROM {{ ref('trusted_ride_transactions') }}
+    FROM {{ ref('trusted.ride_transactions') }}
 )
 SELECT trx.payment_country AS country,
     SUM(trx.payment_price) AS total_price,

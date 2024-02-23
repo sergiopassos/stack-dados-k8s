@@ -2,11 +2,11 @@
 
 WITH mssql_users AS (
     SELECT *, ROW_NUMBER() OVER (ORDER BY last_updated) AS rwn_id
-    FROM {{ ref('stage_mssql_users') }}
+    FROM {{ ref('stage.mssql_users') }}
 ),
 mongodb_users AS (
     SELECT *, ROW_NUMBER() OVER (ORDER BY last_updated) AS rwn_id
-    FROM {{ ref('stage_mongodb_users') }}
+    FROM {{ ref('stage.mongodb_users') }}
 )
 SELECT DISTINCT 
     mssql.rwn_id AS user_id,

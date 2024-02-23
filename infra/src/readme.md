@@ -1,6 +1,9 @@
 # ws-stack-dados-k8s
 
 helm repo add apache-airflow https://airflow.apache.org
+helm repo add elastic https://helm.elastic.co
+helm repo update
+
 
 ### kubernetes cluster
 ```shell
@@ -30,4 +33,9 @@ kubectl apply -f app-manifests/warehouse/trino.yaml
 ```shell
 kubectl apply -f git-credentials-secret.yaml
 kubectl apply -f app-manifests/orchestrator/airflow.yaml
+```
+
+### efk [logging]
+```shell
+helm pull elastic/elasticsearch
 ```

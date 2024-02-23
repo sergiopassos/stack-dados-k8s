@@ -35,32 +35,18 @@ profile_config = ProfileConfig(
     profiles_yml_filepath=(dbt_root_path / "owshq/profiles.yml")
 )
 
-@dag(
-    doc_md=doc_md,
-    start_date=datetime(2024, 2, 20),
-    max_active_runs=1,
+dbt_sql_transform = DbtDag(
+    project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
+    profile_config=profile_config,
+    operator_args={
+        "install_deps": True,
+        "full_refresh": True,
+    },
+
     schedule_interval=timedelta(minutes=30),
-    default_args=default_args,
+    start_date=datetime(2024, 2, 23),
     catchup=False,
-    render_template_as_native_obj=True
+    dag_id="dbt_sql_transform",
+    default_args={"retries": 2},
 )
-def dbt_sql_transform():
-    """
-    """
 
-    get_metadata = EmptyOperator(task_id="get_metadata")
-
-    dbt_project = DbtDag(
-        dag_id="dbt_sql_transform",
-        project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
-        profile_config=profile_config,
-        operator_args={
-            "install_deps": True,
-            "full_refresh": True
-        }
-    )
-
-    get_metadata >> dbt_project
-
-
-dbt_sql_transform()

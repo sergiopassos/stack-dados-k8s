@@ -31,7 +31,7 @@ default_args = {
 
 default_dbt_root_path = Path(__file__).parent / "dbt"
 dbt_root_path = Path(os.getenv("DBT_ROOT_PATH", default_dbt_root_path))
-dbt_manifest = Path(dbt_root_path, "/owshq/target/manifest.json")
+dbt_manifest = Path(dbt_root_path, "owshq/target/manifest.json")
 
 profile_config = ProfileConfig(
     profile_name="iceberg",

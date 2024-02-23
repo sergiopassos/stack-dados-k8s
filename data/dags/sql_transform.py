@@ -66,8 +66,18 @@ def dbt_sql_transform():
             }
         )
 
+        tg_stg_postgres = DbtTaskGroup(
+            group_id="tg_stg_postgres",
+            project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
+            render_config=RenderConfig(select=[f"tag:postgres"]),
+            profile_config=profile_config,
+            operator_args={
+                "install_deps": True,
+                "vars": {}
+            }
+        )
 
-        tg_stg_mssql
+        tg_stg_mssql >> tg_stg_postgres
 
 
     stage

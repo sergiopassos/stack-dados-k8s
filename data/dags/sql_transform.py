@@ -92,7 +92,7 @@ def dbt_sql_transform():
             }
         )
 
-        tg_stg_mssql >> tg_stg_postgres >> tg_stg_mongodb
+        [tg_stg_mssql >> tg_stg_postgres >> tg_stg_mongodb]
 
 
     stage

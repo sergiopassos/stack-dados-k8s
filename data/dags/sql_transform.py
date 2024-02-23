@@ -32,6 +32,7 @@ default_args = {
 
 default_dbt_root_path = Path(__file__).parent / "dbt"
 dbt_root_path = Path(os.getenv("DBT_ROOT_PATH", default_dbt_root_path))
+dbt_manifest = Path(dbt_root_path, "owshq/target/manifest.json")
 
 profile_config = ProfileConfig(
     profile_name="iceberg",
@@ -60,8 +61,8 @@ def dbt_sql_transform():
         
         tg_stg_mssql = DbtTaskGroup(
             group_id="tg_stg_mssql",
-            project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
-            render_config=RenderConfig(select=[f"tag:mssql"]),
+            project_config=ProjectConfig(manifest_path=dbt_manifest),
+            render_config=RenderConfig(load_method=LoadMode.DBT_MANIFEST, select=[f"tag:mssql"]),
             profile_config=profile_config,
             operator_args={
                 "install_deps": True,
@@ -71,8 +72,8 @@ def dbt_sql_transform():
 
         tg_stg_postgres = DbtTaskGroup(
             group_id="tg_stg_postgres",
-            project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
-            render_config=RenderConfig(select=[f"tag:postgres"]),
+            project_config=ProjectConfig(manifest_path=dbt_manifest),
+            render_config=RenderConfig(load_method=LoadMode.DBT_MANIFEST, select=[f"tag:postgres"]),
             profile_config=profile_config,
             operator_args={
                 "install_deps": True,
@@ -82,8 +83,8 @@ def dbt_sql_transform():
 
         tg_stg_mongodb = DbtTaskGroup(
             group_id="tg_stg_mongodb",
-            project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
-            render_config=RenderConfig(select=[f"tag:mongodb"]),
+            project_config=ProjectConfig(manifest_path=dbt_manifest),
+            render_config=RenderConfig(load_method=LoadMode.DBT_MANIFEST, select=[f"tag:mongodb"]),
             profile_config=profile_config,
             operator_args={
                 "install_deps": True,

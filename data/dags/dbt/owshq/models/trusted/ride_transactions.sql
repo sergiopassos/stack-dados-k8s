@@ -2,23 +2,23 @@
 
 WITH user AS (
     SELECT *
-    FROM {{ ref('trusted.users') }}
+    FROM {{ ref('users') }}
 ),
 vehicle AS (
     SELECT * 
-    FROM {{ ref('stage.postgres_vehicle') }}
+    FROM {{ ref('postgres_vehicle') }}
 ),
 subscription AS (
     SELECT * 
-    FROM {{ ref('stage.postgres_subscription') }}
+    FROM {{ ref('postgres_subscription') }}
 ),
 stripe AS (
     SELECT * 
-    FROM {{ ref('stage.mongodb_stripe') }}
+    FROM {{ ref('mongodb_stripe') }}
 ),
 payment AS (
     SELECT * 
-    FROM {{ ref('stage.postgres_payments') }}
+    FROM {{ ref('postgres_payments') }}
 )
 SELECT rides.ride_id AS ride_id,
     rides.user_id AS user_id,

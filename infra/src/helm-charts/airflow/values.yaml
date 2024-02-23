@@ -80,7 +80,7 @@ airflowVersion: "2.8.1"
 images:
   airflow:
     repository: owshq/owshq-apache-airflow
-    tag: 2.8.1
+    tag: latest
     # repository: ~
     # tag: ~ 
     # Specifying digest takes precedence over tag.
@@ -429,7 +429,7 @@ data:
 # key = Fernet.generate_key()
 # print(key.decode())
 fernetKey: t5u8Dst5tkt1F5fwsxnfEwGfytY3Ry5KrP02B32mPxY=
-fernetKeySecretName: ~
+fernetKeySecretName: airflow-fernet-key
 
 # Flask secret key for Airflow Webserver: `[webserver] secret_key` in airflow.cfg
 webserverSecretKey: 289199280de8afee5d0ef80418dbb52a

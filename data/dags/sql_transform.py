@@ -106,18 +106,7 @@ def dbt_sql_transform():
             }
         )
 
-        tg_trusted_ride_transactions = DbtTaskGroup(
-            group_id="tg_trusted_ride_transactions",
-            project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
-            render_config=RenderConfig(select=["path:models/trusted/ride_transactions.sql"]),
-            profile_config=profile_config,
-            operator_args={
-                "install_deps": True,
-                "vars": {}
-            }
-        )
-
-        tg_trusted_users >> tg_trusted_ride_transactions
+        tg_trusted_users
 
 
     get_metadata >> stage >> trusted

@@ -8,7 +8,6 @@ from datetime import timedelta
 from pathlib import Path
 
 from airflow.decorators import dag
-from airflow.utils.task_group import TaskGroup
 from airflow.operators.empty import EmptyOperator
 
 from cosmos import (
@@ -56,8 +55,8 @@ def dbt_sql_transform():
         project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
         profile_config=profile_config,
         operator_args={
-            "install_deps": True,  # install any necessary dependencies before running any dbt command
-            "full_refresh": True,  # used only in dbt commands that support this flag
+            "install_deps": True,
+            "full_refresh": True
         }
     )
 

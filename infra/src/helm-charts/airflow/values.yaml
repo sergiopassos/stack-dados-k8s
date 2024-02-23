@@ -79,10 +79,10 @@ airflowVersion: "2.8.1"
 # Images
 images:
   airflow:
-    # repository: owshq/owshq-apache-airflow
-    # tag: 2.8.1
-    repository: ~
-    tag: ~ 
+    repository: owshq/owshq-apache-airflow
+    tag: 2.8.1
+    # repository: ~
+    # tag: ~ 
     # Specifying digest takes precedence over tag.
     digest: ~
     pullPolicy: Always
@@ -90,7 +90,7 @@ images:
   # all the 'run-airflow-migrations' and 'wait-for-airflow-migrations' containers/jobs
   # will use the images from 'defaultAirflowRepository:defaultAirflowTag' values
   # to run and wait for DB migrations .
-  useDefaultImageForMigration: false
+  useDefaultImageForMigration: true
   # timeout (in seconds) for airflow-migrations to complete
   migrationsWaitTimeout: 60
   pod_template:

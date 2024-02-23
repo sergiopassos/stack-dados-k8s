@@ -49,4 +49,3 @@ dbt_sql_transform = DbtDag(
     dag_id="dbt_sql_transform",
     default_args={"retries": 2},
 )
-

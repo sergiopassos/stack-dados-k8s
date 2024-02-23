@@ -71,7 +71,7 @@ def dbt_sql_transform():
         )
 
 
-        [tg_stg_mssql]
+        tg_stg_mssql
 
 
     get_metadata >> stage

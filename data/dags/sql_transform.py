@@ -55,6 +55,7 @@ def dbt_sql_transform():
 
     get_metadata = EmptyOperator(task_id="get_metadata")
 
+    
     with TaskGroup(group_id="stage") as stage:
         
         tg_stg_mssql = DbtTaskGroup(
@@ -91,9 +92,38 @@ def dbt_sql_transform():
         )
 
         [tg_stg_mssql, tg_stg_postgres, tg_stg_mongodb]
+    
+    with TaskGroup(group_id="trusted") as trusted:
+
+        tg_trusted_users = DbtTaskGroup(
+            group_id="tg_trusted_users",
+            project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
+            render_config=RenderConfig(select=["path:models/trusted/users.sql"]),
+            profile_config=profile_config,
+            operator_args={
+                "install_deps": True,
+                "vars": {}
+            }
+        )
+
+        tg_trusted_ride_transactions = DbtTaskGroup(
+            group_id="tg_trusted_ride_transactions",
+            project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
+            render_config=RenderConfig(select=["path:models/trusted/ride_transactions.sql"]),
+            profile_config=profile_config,
+            operator_args={
+                "install_deps": True,
+                "vars": {}
+            }
+        )
 
 
-    get_metadata >> stage
+        tg_trusted_users >> tg_trusted_ride_transactions
+
+
+
+
+    get_metadata >> stage >> trusted
 
 
 dbt_sql_transform()

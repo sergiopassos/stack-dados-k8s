@@ -1,9 +1,31 @@
+"""
+"""
+
 import os
-from pathlib import Path
+import logging
 from datetime import datetime
 from datetime import timedelta
+from pathlib import Path
 
-from cosmos import DbtDag, ProjectConfig, ProfileConfig
+from airflow.decorators import dag
+from airflow.utils.task_group import TaskGroup
+from airflow.operators.empty import EmptyOperator
+
+from cosmos import (
+    DbtDag,
+    ProfileConfig,
+    ProjectConfig
+)
+
+logger = logging.getLogger(__name__)
+doc_md = """
+"""
+
+default_args = {
+    "owner": "owshq",
+    "retries": 1,
+    "retry_delay": 0
+}
 
 default_dbt_root_path = Path(__file__).parent / "dbt"
 dbt_root_path = Path(os.getenv("DBT_ROOT_PATH", default_dbt_root_path))
@@ -14,26 +36,32 @@ profile_config = ProfileConfig(
     profiles_yml_filepath=(dbt_root_path / "owshq/profiles.yml")
 )
 
-default_args = {
-    "owner": "owshq",
-    "retries": 1,
-    "retry_delay": 0
-}
-
-dbt_prj_trn_sql = DbtDag(
-    project_config=ProjectConfig(
-        dbt_root_path / "owshq",
-    ),
-    profile_config=profile_config,
-    operator_args={
-        "append_env": True,
-    },
-
-    dag_id="dbt_prj_trn_sql",
+@dag(
+    dag_id="dbt_sql_transform",
+    doc_md=doc_md,
     start_date=datetime(2024, 2, 20),
     max_active_runs=1,
-    schedule_interval=timedelta(minutes=10),
+    schedule_interval=timedelta(minutes=30),
     default_args=default_args,
     catchup=False,
     render_template_as_native_obj=True
 )
+def dbt_sql_transform():
+    """
+    """
+
+    get_metadata = EmptyOperator(task_id="get_metadata")
+
+    dbt_project = DbtDag(
+        project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
+        profile_config=profile_config,
+        operator_args={
+            "install_deps": True,  # install any necessary dependencies before running any dbt command
+            "full_refresh": True,  # used only in dbt commands that support this flag
+        }
+    )
+
+    get_metadata >> dbt_project
+
+
+dbt_sql_transform()

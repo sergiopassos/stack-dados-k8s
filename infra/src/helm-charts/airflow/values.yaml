@@ -362,8 +362,7 @@ extraConfigMaps: {}
 # a string is expected (can be templated).
 # TODO: difference from `env`? This is a templated string. Probably should template `env` and remove this.
 extraEnv: 
-  - name: AIRFLOW__CORE__DAGBAG_IMPORT_TIMEOUT
-    value: '120'
+  AIRFLOW__CORE__DAGBAG_IMPORT_TIMEOUT: '120'
 # eg:
 # extraEnv: |
 #   - name: AIRFLOW__CORE__LOAD_EXAMPLES

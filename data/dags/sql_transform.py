@@ -9,6 +9,7 @@ from pathlib import Path
 
 from airflow.decorators import dag
 from airflow.utils.task_group import TaskGroup
+from airflow.operators.empty import EmptyOperator
 
 from cosmos import (
     DbtTaskGroup,
@@ -54,6 +55,8 @@ def dbt_sql_transform():
     """
     """
 
+    get_metadata = EmptyOperator(task_id="get_metadata")
+
     with TaskGroup(group_id="stage") as stage:
         
         tg_stg_mssql = DbtTaskGroup(
@@ -92,10 +95,10 @@ def dbt_sql_transform():
             }
         )
 
-        [tg_stg_mssql >> tg_stg_postgres >> tg_stg_mongodb]
+        [tg_stg_mssql, tg_stg_postgres, tg_stg_mongodb]
 
 
-    stage
+    get_metadata >> stage
 
 
 dbt_sql_transform()

@@ -54,8 +54,8 @@ def dbt_sql_transform():
 
     pre_dbt = EmptyOperator(task_id="pre_dbt")
 
-    mssql = DbtTaskGroup(
-        group_id="mssql",
+    stg_mssql = DbtTaskGroup(
+        group_id="stg_mssql",
         project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
         render_config=RenderConfig(
             load_method=LoadMode.CUSTOM,
@@ -70,7 +70,7 @@ def dbt_sql_transform():
 
     post_dbt = EmptyOperator(task_id="post_dbt")
 
-    pre_dbt >> batch_1 >> post_dbt
+    pre_dbt >> stg_mssql >> post_dbt
 
 
 dbt_sql_transform()

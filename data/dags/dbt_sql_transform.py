@@ -36,7 +36,6 @@ profile_config = ProfileConfig(
 )
 
 @dag(
-    dag_id="dbt_sql_transform",
     doc_md=doc_md,
     start_date=datetime(2024, 2, 20),
     max_active_runs=1,
@@ -52,6 +51,7 @@ def dbt_sql_transform():
     get_metadata = EmptyOperator(task_id="get_metadata")
 
     dbt_project = DbtDag(
+        dag_id="dbt_sql_transform",
         project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
         profile_config=profile_config,
         operator_args={

@@ -54,14 +54,12 @@ def dbt_sql_transform():
 
     pre_dbt = EmptyOperator(task_id="pre_dbt")
 
-    batch_1 = DbtTaskGroup(
-        group_id="batch_1",
-        project_config=ProjectConfig(
-            (dbt_root_path / "owshq").as_posix(),
-        ),
+    mssql = DbtTaskGroup(
+        group_id="mssql",
+        project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
         render_config=RenderConfig(
             load_method=LoadMode.CUSTOM,
-            select=["path:models/stage/mssql_users.sql"]
+            select=["path:models/stage/mssql_*.sql"]
         ),
         profile_config=profile_config,
         operator_args={

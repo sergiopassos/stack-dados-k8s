@@ -1,8 +1,4 @@
-{{ config(
-    materialized = 'table',
-    database = 'iceberg',
-    tags = ["postgres"]
-) }}
+
 
 SELECT
     DISTINCT CAST(
@@ -25,7 +21,4 @@ SELECT
         dt_current_timestamp AS TIMESTAMP
     ) AS last_updated
 FROM
-    {{ source(
-        'minio',
-        'postgres_payments_parquet'
-    ) }}
+    "minio"."landing"."postgres_payments_parquet"

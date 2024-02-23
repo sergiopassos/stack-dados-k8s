@@ -1,11 +1,9 @@
-{{ config(
-    materialized = 'table',
-    database = 'iceberg',
-    tags = ["mongodb"]
-) }}
+
 
 SELECT
-    {{ gen_id() }} AS ride_id,
+    
+    CAST(FLOOR(random() * (10000 - 1 + 1)) + 1 AS INTEGER)
+ AS ride_id,
     CAST(
         user_id AS INT
     ) AS user_id,
@@ -13,9 +11,15 @@ SELECT
     CAST(
         vehicle_id AS INT
     ) AS vehicle_id,
-    {{ gen_id() }} AS subscription_id,
-    {{ gen_id() }} AS payment_id,
-    {{ gen_id() }} AS stripe_id,
+    
+    CAST(FLOOR(random() * (10000 - 1 + 1)) + 1 AS INTEGER)
+ AS subscription_id,
+    
+    CAST(FLOOR(random() * (10000 - 1 + 1)) + 1 AS INTEGER)
+ AS payment_id,
+    
+    CAST(FLOOR(random() * (10000 - 1 + 1)) + 1 AS INTEGER)
+ AS stripe_id,
     source AS source,
     destination AS destination,
     CAST(
@@ -36,7 +40,4 @@ SELECT
         dt_current_timestamp AS TIMESTAMP
     ) AS last_updated
 FROM
-    {{ source(
-        'minio',
-        'mongodb_rides_parquet'
-    ) }}
+    "minio"."landing"."mongodb_rides_parquet"

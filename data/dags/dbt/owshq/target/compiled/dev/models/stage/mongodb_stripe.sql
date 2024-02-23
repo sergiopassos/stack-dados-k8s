@@ -1,8 +1,4 @@
-{{ config(
-    materialized = 'table',
-    database = 'iceberg',
-    tags = ["mongodb"]
-) }}
+
 
 SELECT
     DISTINCT CAST(
@@ -15,7 +11,4 @@ SELECT
         dt_current_timestamp AS TIMESTAMP
     ) AS last_updated
 FROM
-    {{ source(
-        'minio',
-        'mongodb_stripe_parquet'
-    ) }}
+    "minio"."landing"."mongodb_stripe_parquet"

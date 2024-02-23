@@ -1,8 +1,12 @@
-{{ config(
-    materialized = 'table',
-    database = 'iceberg',
-    tags = ["mssql"]
-) }}
+
+  
+    
+
+    create table "iceberg"."landing"."mssql_credit_card__dbt_tmp"
+      
+      
+    as (
+      
 
 SELECT
     DISTINCT CAST(
@@ -21,7 +25,7 @@ SELECT
         dt_current_timestamp AS TIMESTAMP
     ) AS last_updated
 FROM
-    {{ source(
-        'minio',
-        'mssql_credit_card_parquet'
-    ) }}
+    "minio"."landing"."mssql_credit_card_parquet"
+    );
+
+  

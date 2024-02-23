@@ -1,8 +1,12 @@
-{{ config(
-    materialized = 'table',
-    database = 'iceberg',
-    tags = ["postgres"]
-) }}
+
+  
+    
+
+    create table "iceberg"."landing"."postgres_vehicle__dbt_tmp"
+      
+      
+    as (
+      
 
 SELECT
     DISTINCT CAST(
@@ -26,7 +30,7 @@ SELECT
         dt_current_timestamp AS TIMESTAMP
     ) AS last_updated
 FROM
-    {{ source(
-        'minio',
-        'postgres_vehicle_parquet'
-    ) }}
+    "minio"."landing"."postgres_vehicle_parquet"
+    );
+
+  

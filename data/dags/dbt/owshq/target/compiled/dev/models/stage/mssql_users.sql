@@ -1,8 +1,4 @@
-{{ config(
-    materialized = 'table',
-    database = 'iceberg',
-    tags = ["mssql"]
-) }}
+
 
 SELECT
     DISTINCT CAST(
@@ -27,7 +23,4 @@ SELECT
         dt_current_timestamp AS TIMESTAMP
     ) AS last_updated
 FROM
-    {{ source(
-        'minio',
-        'mssql_users_parquet'
-    ) }}
+    "minio"."landing"."mssql_users_parquet"

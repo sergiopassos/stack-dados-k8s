@@ -53,14 +53,12 @@ def dbt_sql_transform():
     """
     """
 
-    pre_dbt = EmptyOperator(task_id="pre_dbt")
-
-    mssql_users = DbtTaskGroup(
-        group_id="mssql_users",
+    tg_stg_mssql = DbtTaskGroup(
+        group_id="tg_stg_mssql",
         project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
         render_config=RenderConfig(
             load_method=LoadMode.CUSTOM,
-            select=["path:models/stage/mssql_users.sql"]
+            select=[f"tag:mssql"],
         ),
         profile_config=profile_config,
         operator_args={
@@ -69,12 +67,12 @@ def dbt_sql_transform():
         }
     )
 
-    mssql_credit_card = DbtTaskGroup(
-        group_id="mssql_credit_card",
+    tg_stg_postgres = DbtTaskGroup(
+        group_id="tg_stg_postgres",
         project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
         render_config=RenderConfig(
             load_method=LoadMode.CUSTOM,
-            select=["path:models/stage/mssql_credit_card.sql"]
+            select=[f"tag:postgres"],
         ),
         profile_config=profile_config,
         operator_args={
@@ -83,9 +81,21 @@ def dbt_sql_transform():
         }
     )
 
-    post_dbt = EmptyOperator(task_id="post_dbt")
+    tg_stg_mongodb = DbtTaskGroup(
+        group_id="tg_stg_mongodb",
+        project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
+        render_config=RenderConfig(
+            load_method=LoadMode.CUSTOM,
+            select=[f"tag:mongodb"],
+        ),
+        profile_config=profile_config,
+        operator_args={
+            "install_deps": True,
+            "vars": {}
+        }
+    )
 
-    pre_dbt >> mssql_users >> mssql_credit_card >> post_dbt
+    tg_stg_mssql >> tg_stg_postgres >> tg_stg_mongodb
 
 
 dbt_sql_transform()

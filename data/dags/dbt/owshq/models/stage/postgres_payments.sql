@@ -1,4 +1,4 @@
-{{ config(materialized='table', database='iceberg') }}
+{{ config(materialized='table', database='iceberg', tags=["postgres"]) }}
 
 SELECT DISTINCT 
        CAST(user_id AS INT) AS payment_id,

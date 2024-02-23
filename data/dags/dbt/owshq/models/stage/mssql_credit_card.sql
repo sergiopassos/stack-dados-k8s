@@ -1,4 +1,4 @@
-{{ config(materialized='table', database='iceberg') }}
+{{ config(materialized='table', database='iceberg', tags=["mssql"]) }}
 
 SELECT DISTINCT
     CAST(id AS INT) AS credit_card_id,

@@ -1,4 +1,4 @@
-{{ config(materialized='table', database='iceberg') }}
+{{ config(materialized='table', database='iceberg', tags=["postgres"]) }}
 
 SELECT DISTINCT
     CAST(id AS INT) AS vehicle_id,

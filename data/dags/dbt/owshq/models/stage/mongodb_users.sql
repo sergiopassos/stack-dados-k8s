@@ -1,4 +1,4 @@
-{{ config(materialized='table', database='iceberg') }}
+{{ config(materialized='table', database='iceberg', tags=["mongodb"]) }}
 
 SELECT DISTINCT
     CAST(id AS INT) AS id,

@@ -1,4 +1,4 @@
-{{ config(materialized='table', database='iceberg') }}
+{{ config(materialized='table', database='iceberg', tags=["mongodb"]) }}
 
 SELECT 
     {{ gen_id() }} AS ride_id,

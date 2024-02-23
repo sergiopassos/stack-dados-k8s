@@ -122,3 +122,59 @@ alter table "iceberg"."landing"."stage_mssql_users__dbt_tmp" rename to "iceberg"
 [0m12:54:10.247340 [debug] [MainThread]: Command `cli run` succeeded at 12:54:10.247279 after 6.99 seconds
 [0m12:54:10.247566 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1192d6f90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1192d7090>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x119257950>]}
 [0m12:54:10.247753 [debug] [MainThread]: Flushing usage events
+[0m14:53:43.255489 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1063e74f0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10c397e80>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10c3da7c0>]}
+
+
+============================== 14:53:43.258766 | 732a1da5-c18f-46f7-a8a6-d37e37cd41d2 ==============================
+[0m14:53:43.258766 [info ] [MainThread]: Running with dbt=1.7.8
+[0m14:53:43.259096 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'fail_fast': 'False', 'debug': 'False', 'log_path': '/Users/luanmorenomaciel/GitHub/ws-stack-dados-k8s/data/dags/dbt/owshq/logs', 'version_check': 'True', 'profiles_dir': '/Users/luanmorenomaciel/GitHub/ws-stack-dados-k8s/data/dags/dbt/owshq', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'invocation_command': 'dbt parse', 'log_format': 'default', 'static_parser': 'True', 'target_path': 'None', 'introspect': 'True', 'send_anonymous_usage_stats': 'True'}
+[0m14:53:43.381475 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '732a1da5-c18f-46f7-a8a6-d37e37cd41d2', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10c3af4f0>]}
+[0m14:53:43.422735 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '732a1da5-c18f-46f7-a8a6-d37e37cd41d2', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10c6039a0>]}
+[0m14:53:43.423049 [info ] [MainThread]: Registered adapter: trino=1.7.0
+[0m14:53:43.434375 [debug] [MainThread]: checksum: 67f0013ca5f0bd43af9a0873dd50792fde83ef69de63b71cacd0b4ac656c52e5, vars: {}, profile: , target: , version: 1.7.8
+[0m14:53:43.488255 [debug] [MainThread]: Partial parsing enabled: 13 files deleted, 8 files added, 0 files changed.
+[0m14:53:43.488715 [debug] [MainThread]: Partial parsing: added file: dev://models/stage/postgres_subscription.sql
+[0m14:53:43.488952 [debug] [MainThread]: Partial parsing: added file: dev://models/stage/mssql_users.sql
+[0m14:53:43.492699 [debug] [MainThread]: Partial parsing: added file: dev://models/stage/postgres_payments.sql
+[0m14:53:43.493331 [debug] [MainThread]: Partial parsing: added file: dev://models/stage/mssql_credit_card.sql
+[0m14:53:43.493506 [debug] [MainThread]: Partial parsing: added file: dev://models/stage/mongodb_users.sql
+[0m14:53:43.497668 [debug] [MainThread]: Partial parsing: added file: dev://models/stage/postgres_vehicle.sql
+[0m14:53:43.497858 [debug] [MainThread]: Partial parsing: added file: dev://models/stage/mongodb_stripe.sql
+[0m14:53:43.498034 [debug] [MainThread]: Partial parsing: added file: dev://models/stage/mongodb_rides.sql
+[0m14:53:43.498224 [debug] [MainThread]: Partial parsing: deleted file: dev://models/stage/stage_mongodb_users.sql
+[0m14:53:43.501642 [debug] [MainThread]: Partial parsing: deleted file: dev://models/stage/stage_postgres_vehicle.sql
+[0m14:53:43.501882 [debug] [MainThread]: Partial parsing: deleted file: dev://models/trusted/trusted_most_used_payment_methods.sql
+[0m14:53:43.502071 [debug] [MainThread]: Partial parsing: deleted file: dev://models/stage/stage_postgres_subscription.sql
+[0m14:53:43.502264 [debug] [MainThread]: Partial parsing: deleted file: dev://models/stage/stage_postgres_payments.sql
+[0m14:53:43.505727 [debug] [MainThread]: Partial parsing: deleted file: dev://models/stage/stage_mongodb_rides.sql
+[0m14:53:43.505897 [debug] [MainThread]: Partial parsing: deleted file: dev://models/stage/stage_mongodb_stripe.sql
+[0m14:53:43.506051 [debug] [MainThread]: Partial parsing: deleted file: dev://models/stage/stage_mssql_users.sql
+[0m14:53:43.506203 [debug] [MainThread]: Partial parsing: deleted file: dev://models/trusted/trusted_top_vehicles.sql
+[0m14:53:43.506354 [debug] [MainThread]: Partial parsing: deleted file: dev://models/trusted/trusted_total_transactions_per_country.sql
+[0m14:53:43.506503 [debug] [MainThread]: Partial parsing: deleted file: dev://models/trusted/trusted_users.sql
+[0m14:53:43.506654 [debug] [MainThread]: Partial parsing: deleted file: dev://models/trusted/trusted_ride_transactions.sql
+[0m14:53:43.506802 [debug] [MainThread]: Partial parsing: deleted file: dev://models/stage/stage_mssql_credit_card.sql
+[0m14:53:43.606829 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '732a1da5-c18f-46f7-a8a6-d37e37cd41d2', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10c9def40>]}
+[0m14:53:43.607798 [info ] [MainThread]: Performance info: /Users/luanmorenomaciel/GitHub/ws-stack-dados-k8s/data/dags/dbt/owshq/target/perf_info.json
+[0m14:53:43.626403 [debug] [MainThread]: Resource report: {"command_name": "parse", "command_success": true, "command_wall_clock_time": 0.4116587, "process_user_time": 1.249101, "process_kernel_time": 0.173951, "process_mem_max_rss": "110952448", "process_in_blocks": "0", "process_out_blocks": "0"}
+[0m14:53:43.626727 [debug] [MainThread]: Command `dbt parse` succeeded at 14:53:43.626659 after 0.41 seconds
+[0m14:53:43.626929 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1063e74f0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10c6bf430>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10c719730>]}
+[0m14:53:43.627120 [debug] [MainThread]: Flushing usage events
+[0m14:54:00.413867 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x102c3b550>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10497dd00>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10498ed30>]}
+
+
+============================== 14:54:00.416344 | 4efbfb0c-dff8-44a1-9410-b3a94d9ccd37 ==============================
+[0m14:54:00.416344 [info ] [MainThread]: Running with dbt=1.7.8
+[0m14:54:00.416684 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': '/Users/luanmorenomaciel/GitHub/ws-stack-dados-k8s/data/dags/dbt/owshq', 'version_check': 'True', 'debug': 'False', 'log_path': '/Users/luanmorenomaciel/GitHub/ws-stack-dados-k8s/data/dags/dbt/owshq/logs', 'fail_fast': 'False', 'warn_error': 'None', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'static_parser': 'True', 'introspect': 'True', 'log_format': 'default', 'target_path': 'None', 'invocation_command': 'dbt parse', 'send_anonymous_usage_stats': 'True'}
+[0m14:54:00.535825 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '4efbfb0c-dff8-44a1-9410-b3a94d9ccd37', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10494bbe0>]}
+[0m14:54:00.576978 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '4efbfb0c-dff8-44a1-9410-b3a94d9ccd37', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x104c84970>]}
+[0m14:54:00.577270 [info ] [MainThread]: Registered adapter: trino=1.7.0
+[0m14:54:00.589362 [debug] [MainThread]: checksum: 67f0013ca5f0bd43af9a0873dd50792fde83ef69de63b71cacd0b4ac656c52e5, vars: {}, profile: , target: , version: 1.7.8
+[0m14:54:00.591163 [info ] [MainThread]: Unable to do partial parsing because saved manifest not found. Starting full parse.
+[0m14:54:00.591417 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': '4efbfb0c-dff8-44a1-9410-b3a94d9ccd37', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x104c84b80>]}
+[0m14:54:01.180812 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '4efbfb0c-dff8-44a1-9410-b3a94d9ccd37', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x105aa50d0>]}
+[0m14:54:01.181495 [info ] [MainThread]: Performance info: /Users/luanmorenomaciel/GitHub/ws-stack-dados-k8s/data/dags/dbt/owshq/target/perf_info.json
+[0m14:54:01.187467 [debug] [MainThread]: Resource report: {"command_name": "parse", "command_success": true, "command_wall_clock_time": 0.80951804, "process_user_time": 1.72833, "process_kernel_time": 0.166584, "process_mem_max_rss": "113917952", "process_in_blocks": "0", "process_out_blocks": "0"}
+[0m14:54:01.187748 [debug] [MainThread]: Command `dbt parse` succeeded at 14:54:01.187683 after 0.81 seconds
+[0m14:54:01.187953 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x102c3b550>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x104bc8d60>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1059d4e80>]}
+[0m14:54:01.188169 [debug] [MainThread]: Flushing usage events

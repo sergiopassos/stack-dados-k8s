@@ -1,4 +1,8 @@
-{{ config(materialized='table', database='iceberg', tags=["postgres"]) }}
+{{ config(
+    tags = "postgres",
+    materialized = 'table',
+    database = 'iceberg'
+) }}
 
 SELECT DISTINCT 
        CAST(id AS INT) AS subscription_id,

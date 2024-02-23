@@ -47,7 +47,7 @@ SELECT rides.ride_id AS ride_id,
     payment.currency AS payment_currency,
     payment.credit_card_type AS payment_credit_card_type,
     payment.price AS payment_price
-FROM {{ ref('stage_mongodb_rides') }} AS rides
+FROM {{ ref('mongodb_rides') }} AS rides
 LEFT OUTER JOIN user AS user
 ON rides.user_id = user.user_id
 LEFT OUTER JOIN vehicle AS vehicle

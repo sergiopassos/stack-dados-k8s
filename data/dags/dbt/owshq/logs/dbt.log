@@ -2149,3 +2149,22 @@ ON mssql.user_id = mongodb.user_id
 [0m16:59:54.486904 [debug] [MainThread]: Command `cli run` succeeded at 16:59:54.486821 after 3.40 seconds
 [0m16:59:54.487161 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x114036b20>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x116b3ae20>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x116359580>]}
 [0m16:59:54.487429 [debug] [MainThread]: Flushing usage events
+[0m17:02:27.335144 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x102f74250>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x106b468e0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x106b58340>]}
+
+
+============================== 17:02:27.338149 | ce010c53-ecbb-4efb-b2fc-daad424d07dd ==============================
+[0m17:02:27.338149 [info ] [MainThread]: Running with dbt=1.7.8
+[0m17:02:27.338491 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': '/Users/luanmorenomaciel/GitHub/ws-stack-dados-k8s/data/dags/dbt/owshq', 'debug': 'False', 'warn_error': 'None', 'log_path': '/Users/luanmorenomaciel/GitHub/ws-stack-dados-k8s/data/dags/dbt/owshq/logs', 'version_check': 'True', 'fail_fast': 'False', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'log_format': 'default', 'static_parser': 'True', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'introspect': 'True', 'target_path': 'None', 'invocation_command': 'dbt ', 'send_anonymous_usage_stats': 'True'}
+[0m17:02:27.459423 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': 'ce010c53-ecbb-4efb-b2fc-daad424d07dd', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x106b2f2b0>]}
+[0m17:02:27.500667 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': 'ce010c53-ecbb-4efb-b2fc-daad424d07dd', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x106a22940>]}
+[0m17:02:27.500972 [info ] [MainThread]: Registered adapter: trino=1.7.0
+[0m17:02:27.513299 [debug] [MainThread]: checksum: 67f0013ca5f0bd43af9a0873dd50792fde83ef69de63b71cacd0b4ac656c52e5, vars: {}, profile: , target: , version: 1.7.8
+[0m17:02:27.565269 [debug] [MainThread]: Partial parsing enabled: 0 files deleted, 1 files added, 0 files changed.
+[0m17:02:27.565722 [debug] [MainThread]: Partial parsing: added file: dev://models/trusted/ride_transactions.sql
+[0m17:02:27.627636 [error] [MainThread]: Encountered an error:
+Compilation Error
+  Model 'model.dev.ride_transactions' (models/trusted/ride_transactions.sql) depends on a node named 'stage_mongodb_rides' which was not found
+[0m17:02:27.630240 [debug] [MainThread]: Resource report: {"command_name": "run", "command_wall_clock_time": 0.33090666, "process_user_time": 1.217507, "process_kernel_time": 0.16678, "process_mem_max_rss": "107692032", "command_success": false, "process_in_blocks": "0", "process_out_blocks": "0"}
+[0m17:02:27.630631 [debug] [MainThread]: Command `cli run` failed at 17:02:27.630535 after 0.33 seconds
+[0m17:02:27.630860 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x102f74250>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10711a850>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x107073f10>]}
+[0m17:02:27.631081 [debug] [MainThread]: Flushing usage events

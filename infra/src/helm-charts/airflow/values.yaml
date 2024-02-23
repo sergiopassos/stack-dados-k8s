@@ -79,10 +79,10 @@ airflowVersion: "2.8.1"
 # Images
 images:
   airflow:
-    # repository: owshq/owshq-apache-airflow
-    # tag: 2.6.3
-    repository: ~
-    tag: ~ 
+    repository: owshq/owshq-apache-airflow
+    tag: 2.8.1
+    # repository: ~
+    # tag: ~ 
     # Specifying digest takes precedence over tag.
     digest: ~
     pullPolicy: Always

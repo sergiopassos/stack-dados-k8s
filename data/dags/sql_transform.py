@@ -75,4 +75,4 @@ def dbt_sql_transform():
     pre_dbt >> batch_1 >> post_dbt
 
 
-dag_sql_transform()
+dbt_sql_transform()

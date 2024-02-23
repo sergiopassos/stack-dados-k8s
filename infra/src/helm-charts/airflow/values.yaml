@@ -79,8 +79,8 @@ airflowVersion: "2.8.1"
 # Images
 images:
   airflow:
-    repository: ~
-    tag: ~
+    repository: owshq/owshq-apache-airflow
+    tag: 2.8.1
     # Specifying digest takes precedence over tag.
     digest: ~
     pullPolicy: IfNotPresent

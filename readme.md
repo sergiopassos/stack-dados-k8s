@@ -24,7 +24,7 @@ Desenvolvimento de uma aplicação que cria arquivos em json ou parquet para col
 de uma data lake, nesse caso utilizando MinIO (s3).
 
 Para entendimento da aplicação, siga os passos:
-1) [Data Gen DataStores](https://github.com/owshq-academy/ws-stack-dados-k8s/blob/609aca25dd487530c79b4b8e3bc58142d3afe0f7/app/data-gen-datastores/object_storage.bash)
+1) [Data Gen DataStores](https://github.com/owshq-academy/ws-stack-dados-k8s/blob/6c3b885f044d67ac60f6ee2d6e6fca5dcc5e0fa2/app/data-gen-datastores/readme.md)
 
 ### data
 Criação de um pipeline de dados utilizando Apache Airflow, Trino & dbt-Core para criar um ambiente de dados

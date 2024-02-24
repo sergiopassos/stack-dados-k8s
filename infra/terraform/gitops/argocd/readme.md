@@ -4,7 +4,10 @@
 ```sh
 brew install helm
 brew install argocd
+```
 
+### repos
+```sh
 helm repo add argo https://argoproj.github.io/argo-helm
 ```
 

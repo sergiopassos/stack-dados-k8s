@@ -1,6 +1,6 @@
 # Terraform
 
-### terraform
+### install
 ```sh
 brew tap hashicorp/tap
 brew install hashicorp/tap/terraform

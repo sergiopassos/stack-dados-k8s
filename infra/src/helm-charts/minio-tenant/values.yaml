@@ -116,6 +116,7 @@ tenant:
     - name: landing
     - name: metastore
     - name: trino
+    - name: owshq
   ## List of secret names to use for generating MinIO users during tenant provisioning
   users: [ ]
   ## PodManagement policy for MinIO Tenant Pods. Can be "OrderedReady" or "Parallel"

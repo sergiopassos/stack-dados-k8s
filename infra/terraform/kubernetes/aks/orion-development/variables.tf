@@ -26,7 +26,7 @@ variable "vm_size" {
 
 variable "node_count" {
   type        = number
-  default     = 3
+  default     = 4
 }
 
 variable "msi_id" {

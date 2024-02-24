@@ -5,17 +5,17 @@ variable "resource_group_location" {
 
 variable "resource_group_name_prefix" {
   type        = string
-  default     = "rg-orion"
+  default     = "rg-owshq-orion-ws-dev"
 }
 
 variable "cluster_name" {
   type        = string
-  default     = "orion-development"
+  default     = "owshq-orion-ws-dev"
 }
 
 variable "dns_prefix" {
   type        = string
-  default     = "dns-orion"
+  default     = "dns-owshq-orion-ws-dev"
 }
 
 variable "vm_size" {

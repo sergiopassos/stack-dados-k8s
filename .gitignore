@@ -20,3 +20,5 @@ infra/terraform/kubernetes/aks/orion-development/terraform.tfstate
 infra/terraform/kubernetes/aks/orion-development/.terraform/providers/registry.terraform.io/azure/
 infra/terraform/kubernetes/aks/orion-development/.terraform/providers/registry.terraform.io/hashicorp/
 
+
+infra/terraform/kubernetes/aks/owshq-orion-ws-dev/terraform.tfstate.backup

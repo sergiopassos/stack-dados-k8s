@@ -13,7 +13,7 @@ spec:
       valueFiles:
         - values.yaml
   destination:
-      name: 'orion-development'
+      name: 'owshq-orion-ws-dev'
       namespace: deepstorage
       server: ''
   syncPolicy:

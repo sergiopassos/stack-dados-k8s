@@ -1,4 +1,4 @@
-# ArgoCD
+# GitOps using ArgoCD
 
 ### install
 ```sh

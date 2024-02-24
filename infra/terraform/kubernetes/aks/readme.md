@@ -1,4 +1,4 @@
-# Terraform
+# Kubernetes & Terraform
 
 ### install
 ```sh

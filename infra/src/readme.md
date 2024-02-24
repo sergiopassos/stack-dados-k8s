@@ -1,4 +1,4 @@
-# Data on Kubernetes
+# Manifests Deployment
 
 ### helm repo
 ```sh
